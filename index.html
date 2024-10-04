@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cell Tower EMF Reports</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+        .popup-content {
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cell Tower EMF Reports</h1>
+    <div id="map"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Initialize map
+        var map = L.map('map').setView([-33.8688, 151.2093], 12); // Center on Sydney
+
+        // Add tile layer to the map (you can change this to any map tile provider)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Function to add markers
+        function addMarker(lat, lon, towerName, pdfs) {
+            var marker = L.marker([lat, lon]).addTo(map);
+            var popupContent = `<div class="popup-content"><strong>${towerName}</strong><ul>`;
+            pdfs.forEach(function(pdf) {
+                popupContent += `<li><a href="${pdf}" target="_blank">${pdf.split('/').pop()}</a></li>`;
+            });
+            popupContent += '</ul></div>';
+            marker.bindPopup(popupContent);
+        }
+
+        // Add markers for each cell tower (replace these with your actual data)
+        addMarker(-33.8688, 151.2093, 'Tower 1', [
+            'pdfs/tower1_report1.pdf',
+            'pdfs/tower1_report2.pdf'
+        ]);
+        addMarker(-33.8731, 151.2030, 'Tower 2', [
+            'pdfs/tower2_report1.pdf'
+        ]);
+    </script>
+</body>
+</html>
