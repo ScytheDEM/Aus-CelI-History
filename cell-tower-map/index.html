@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <title>Cell Tower Map</title>
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="form.js"></script>
+    <script type="module" src="script.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  </head>
+  <body>
+    <h1>Interactive Cell Tower Map</h1>
+    <div id="map"></div>
+    <button id="show-form">Add Cell Tower</button>
+    <div id="form-container" style="display: none">
+      <form id="tower-form">
+        <input type="text" id="siteName" placeholder="Site Name" required />
+        <input type="text" id="latitude" placeholder="Latitude" required />
+        <input type="text" id="longitude" placeholder="Longitude" required />
+        <div id="carriers-container">
+          <h3>Carriers</h3>
+          <div class="carrier-entry">
+            <input type="text" class="carrier" placeholder="Carrier" required />
+            <div class="technologies-container">
+              <h4>Technologies</h4>
+              <div class="technology-entry">
+                <input
+                  type="text"
+                  class="technology"
+                  placeholder="Technology (e.g., 3G, 4G)"
+                  required
+                />
+                <input
+                  type="text"
+                  class="band"
+                  placeholder="Band Type (e.g., 1800mhz, 1900mhz)"
+                  required
+                />
+                <button type="button" class="remove-technology">
+                  Remove Technology
+                </button>
+              </div>
+            </div>
+            <button type="button" class="add-technology">Add Technology</button>
+            <button type="button" class="remove-carrier">Remove Carrier</button>
+          </div>
+        </div>
+        <button type="button" id="add-carrier">Add Carrier</button>
+        <button type="submit">Add Tower</button>
+      </form>
+    </div>
+    <script>
+      document
+        .getElementById("show-form")
+        .addEventListener("click", function () {
+          const formContainer = document.getElementById("form-container");
+          formContainer.style.display =
+            formContainer.style.display === "none" ? "block" : "none";
+        });
+    </script>
+  </body>
+</html>
